@@ -65,7 +65,7 @@ grails.project.dependency.resolution = {
 //        compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
 
 
-	runtime 'postgresql:postgresql:8.4-702.jdbc3
+	runtime 'postgresql:postgresql:8.4-702.jdbc3'
     }
 
     plugins {
