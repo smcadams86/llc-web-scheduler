@@ -1,6 +1,6 @@
 package llc.web.scheduler
 
-class Role {
+class LLCRole {
 
 	String authority
 

@@ -23,9 +23,9 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.savedrequest.DefaultSavedRequest
 
-import llc.web.scheduler.User
-import llc.web.scheduler.Role
-import llc.web.scheduler.UserRole
+import llc.web.scheduler.LLCUser
+import llc.web.scheduler.LLCRole
+import llc.web.scheduler.LLCUserLLCRole
 import llc.web.scheduler.OAuthID
 
 /**
@@ -98,8 +98,8 @@ class SpringSecurityOAuthController {
         assert oAuthToken, "There is no auth token in the session!"
 
         if (request.post) {
-            boolean linked = command.validate() && User.withTransaction { status ->
-                User user = User.findByUsernameAndPassword(
+            boolean linked = command.validate() && LLCUser.withTransaction { status ->
+                LLCUser user = LLCUser.findByUsernameAndPassword(
                         command.username, springSecurityService.encodePassword(command.password))
                 if (user) {
                     user.addToOAuthIDs(provider: oAuthToken.providerName, accessToken: oAuthToken.socialId, user: user)
@@ -133,8 +133,8 @@ class SpringSecurityOAuthController {
             if (!springSecurityService.loggedIn) {
                 def config = SpringSecurityUtils.securityConfig
 
-                boolean created = command.validate() && User.withTransaction { status ->
-                    User user = new User(username: command.username, password: command.password1, enabled: true)
+                boolean created = command.validate() && LLCUser.withTransaction { status ->
+                    LLCUser user = new LLCUser(username: command.username, password: command.password1, enabled: true)
                     user.addToOAuthIDs(provider: oAuthToken.providerName, accessToken: oAuthToken.socialId, user: user)
 
                     // updateUser(user, oAuthToken)
@@ -145,7 +145,7 @@ class SpringSecurityOAuthController {
                     }
 
                     for (roleName in config.oauth.registration.roleNames) {
-                        UserRole.create user, Role.findByAuthority(roleName)
+                        LLCUserLLCRole.create user, LLCRole.findByAuthority(roleName)
                     }
 
                     oAuthToken = updateOAuthToken(oAuthToken, user)
@@ -181,7 +181,7 @@ class SpringSecurityOAuthController {
         return oAuthToken
     }
 
-    protected OAuthToken updateOAuthToken(OAuthToken oAuthToken, User user) {
+    protected OAuthToken updateOAuthToken(OAuthToken oAuthToken, LLCUser user) {
         def conf = SpringSecurityUtils.securityConfig
 
         // user
@@ -216,7 +216,7 @@ class SpringSecurityOAuthController {
     }
 
 /*
-    private def updateUser(User user, OAuthToken oAuthToken) {
+    private def updateUser(LLCUser user, OAuthToken oAuthToken) {
         if (!user.validate()) {
             return
         }
@@ -344,8 +344,8 @@ class OAuthCreateAccountCommand {
 
     static constraints = {
         username blank: false, validator: { String username, command ->
-            User.withNewSession { session ->
-                if (username && User.countByUsername(username)) {
+            LLCUser.withNewSession { session ->
+                if (username && LLCUser.countByUsername(username)) {
                     return 'OAuthCreateAccountCommand.username.error.unique'
                 }
             }

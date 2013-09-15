@@ -1,6 +1,6 @@
 package llc.web.scheduler
 
-class User {
+class LLCUser {
 
 	transient springSecurityService
 
@@ -10,20 +10,20 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
-    
-    static hasMany = [oAuthIDs: OAuthID]
 
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
 	}
 
+	static hasMany = [oAuthIDs: OAuthID]
+
 	static mapping = {
 		password column: '`password`'
 	}
 
-	Set<Role> getAuthorities() {
-		UserRole.findAllByUser(this).collect { it.role } as Set
+	Set<LLCRole> getAuthorities() {
+		LLCUserLLCRole.findAllByLLCUser(this).collect { it.LLCRole } as Set
 	}
 
 	def beforeInsert() {

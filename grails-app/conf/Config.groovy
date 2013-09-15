@@ -115,11 +115,6 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'llc.web.scheduler.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'llc.web.scheduler.UserRole'
-grails.plugins.springsecurity.authority.className = 'llc.web.scheduler.Role'
-
 grails.plugins.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
 
 
@@ -137,8 +132,6 @@ oauth {
     }
     debug = true
 }
-// Added by the Spring Security OAuth plugin:
-grails.plugins.springsecurity.oauth.domainClass = 'llc.web.scheduler.OAuthID'
 
 fileuploader {
 	excel {
@@ -147,3 +140,11 @@ fileuploader {
 		path = "/tmp/excel/"
 	}
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'llc.web.scheduler.LLCUser'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'llc.web.scheduler.LLCUserLLCRole'
+grails.plugins.springsecurity.authority.className = 'llc.web.scheduler.LLCRole'
+
+// Added by the Spring Security OAuth plugin:
+grails.plugins.springsecurity.oauth.domainClass = 'llc.web.scheduler.OAuthID'

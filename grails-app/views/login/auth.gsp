@@ -85,8 +85,6 @@
 </head>
 
 <body>
-  <oauth:connect provider="google" id="google-connect-link">Google</oauth:connect>
-  
 <div id='login'>
 	<div class='inner'>
 		<div class='fheader'><g:message code="springSecurity.login.header"/></div>

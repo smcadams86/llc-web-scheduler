@@ -15,7 +15,7 @@
  */
 package llc.web.scheduler
 
-import llc.web.scheduler.User
+import llc.web.scheduler.LLCUser
 
 /**
  * Simple domain class that records the identities of users authenticating via
@@ -28,7 +28,7 @@ class OAuthID implements Serializable {
     String provider
     String accessToken
 
-    static belongsTo = [user: User]
+    static belongsTo = [user: LLCUser]
 
     static constraints = {
         accessToken unique: true
