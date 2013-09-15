@@ -89,6 +89,9 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.3.5"
         runtime ":jquery:1.10.2"
         runtime ":resources:1.2"
+compile ':webxml:1.4.1'
+   compile ':heroku:1.0.1'
+   compile ':cloud-support:1.0.8'
         
         
         // Uncomment these (or add new ones) to enable additional resources capabilities

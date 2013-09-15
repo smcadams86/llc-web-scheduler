@@ -120,6 +120,8 @@ grails.plugins.springsecurity.userLookup.userDomainClassName = 'llc.web.schedule
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'llc.web.scheduler.UserRole'
 grails.plugins.springsecurity.authority.className = 'llc.web.scheduler.Role'
 
+grails.plugins.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
+
 
 oauth {
     providers {
