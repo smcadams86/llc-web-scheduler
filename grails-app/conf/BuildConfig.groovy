@@ -57,15 +57,15 @@ grails.project.dependency.resolution = {
         compile 'org.apache.poi:poi:3.9'
         compile 'org.apache.poi:poi-ooxml:3.9'
         compile 'org.apache.poi:poi-scratchpad:3.9'
-//        compile 'com.google.api-client:google-api-client:1.17.0-rc'
-//        compile 'com.google.http-client:google-http-client:1.17.0-rc'
-//        compile 'com.google.apis:google-api-services-calendar:v3-rev59-1.17.0-rc'
+        //        compile 'com.google.api-client:google-api-client:1.17.0-rc'
         //        compile 'com.google.http-client:google-http-client:1.17.0-rc'
-//        compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
-//        compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+        //        compile 'com.google.apis:google-api-services-calendar:v3-rev59-1.17.0-rc'
+        //        compile 'com.google.http-client:google-http-client:1.17.0-rc'
+        //        compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
+        //        compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
 
 
-	runtime 'postgresql:postgresql:8.4-702.jdbc3'
+        runtime 'postgresql:postgresql:8.4-702.jdbc3'
     }
 
     plugins {
@@ -87,11 +87,11 @@ grails.project.dependency.resolution = {
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.1" // or ":hibernate4:4.1.11.1"
         runtime ":database-migration:1.3.5"
-        runtime ":jquery:1.10.2"
+//        runtime ":jquery:1.10.2"
         runtime ":resources:1.2"
-compile ':webxml:1.4.1'
-   compile ':heroku:1.0.1'
-   compile ':cloud-support:1.0.8'
+        compile ':webxml:1.4.1'
+        compile ':heroku:1.0.1'
+        compile ':cloud-support:1.0.8'
         
         
         // Uncomment these (or add new ones) to enable additional resources capabilities

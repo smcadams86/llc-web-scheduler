@@ -29,13 +29,9 @@
                             <fileuploader:form upload="excel" successAction="success"
                             successController="upload" errorAction="error"
                             errorController="upload" />
-
                             <g:javascript>
-                                $(":input[name='file']").width("100%");
-                                $(":input[name='file']").addClass("btn btn-default");
-                                $(":input[name='submit']").addClass("btn btn-primary");
-                                $(":input[name='submit']").width("100%");
-                                $("a[provider='google']").width("100%");
+                                $(":input[name='file']").addClass("btn btn-default btn-block ");
+                                $(":input[name='submit']").addClass("btn btn-primary btn-block");
                             </g:javascript>
                         </p>
                     </div>
@@ -44,7 +40,7 @@
                     <div class="well well-lg">
                         <h3>Copy from Google Calendar</h3>
                         <p>
-                        <oauth:connect provider="google" id="google-connect-link" class="btn btn-primary">Google Authorization</oauth:connect>
+                        <oauth:connect provider="google" id="google-connect-link" class="btn btn-primary btn-block">Google Authorization</oauth:connect>
                         </p>
                     </div>
                 </div>
