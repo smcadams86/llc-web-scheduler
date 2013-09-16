@@ -9,6 +9,7 @@ import llc.web.scheduler.importing.FailedCalendarEvent
 
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
+import llc.web.scheduler.importing.FailedCalendarEventField
 
 @Transactional
 class ImportService {
@@ -70,7 +71,18 @@ class ImportService {
                 importAttempt.addToEvents(googleCalendarEvent)
             }
             else {
-                importAttempt.addToFailedEvents(new FailedCalendarEvent(data : params))
+                def failedCalendarEvent = new FailedCalendarEvent()
+                params.each { k, v ->
+                    def error = googleCalendarEvent.errors.getFieldError(k)
+                    failedCalendarEvent.addToFailedFields(
+                        new FailedCalendarEventField(
+                            columnName : k,
+                            value : v,
+                            error : error ? error.toString() : ''
+                        )
+                    )
+                }
+                importAttempt.addToFailedEvents(failedCalendarEvent)
             }
         }
 		

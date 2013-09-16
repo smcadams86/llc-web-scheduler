@@ -11,36 +11,39 @@
         <g:set var="entityName" value="${message(code: 'importAttempt.label', default: 'ImportAttempt')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
         <g:javascript>
-            var rows = ${importAttemptInstance.excelMapping?.size() > 0 ? importAttemptInstance.excelMapping?.size() : 0}
+            var rows = ${importAttemptInstance.excelMapping?.size() > 0 ? importAttemptInstance.excelMapping?.size() : 1}
             function addRow() {
-            $("#google_calendar_mapping > tr:first").clone().find("select").each(function() {
-            $(this).attr({
-            'id': function(_, id) { return id.replace(/0/g, rows)},
-            'name': function(_, name) { return name.replace(/0/g, rows) },
-            'value': ''               
-            });
+                $("#google_calendar_mapping > tr:first").clone().find("select").each(function() {
+                $(this).attr({
+                    'id': function(_, id) { return id.replace(/0/g, rows)},
+                    'name': function(_, name) { return name.replace(/0/g, rows) },
+                    'value': ''               
+                });
             }).end().appendTo("#google_calendar_mapping");
             $("#google_calendar_mapping > tr:last > td:last").append(
-            $("<button>")
-            .attr("type", "button")
-            .attr("class", "btn btn-danger")
-            .attr("onClick", "$(this).closest('tr').remove()")
-            .append(
-            $("<p>").attr("class", "glyphicon glyphicon-trash"))
+                $("<button>")
+                    .attr("type", "button")
+                    .attr("class", "btn btn-danger")
+                    .attr("onClick", "$(this).closest('tr').remove()")
+                .append(
+                    $("<p>").attr("class", "glyphicon glyphicon-trash"))
                 );
                 rows++;
-                }
-            </g:javascript>
-            </head>
-        <body>
-            <%
-    def d = new DefaultGrailsDomainClass(GoogleCalendarDomainEvent.class)
-    d.persistentProperties
-    def googleFields = d.persistentProperties*.name
-    googleFields.remove("importAttempt")
-%>
+            }
+        </g:javascript>
+    </head>
+    <body>
+    <%
+        def d = new DefaultGrailsDomainClass(GoogleCalendarDomainEvent.class)
+        d.persistentProperties
+        def googleFields = d.persistentProperties*.name
+        googleFields.remove("importAttempt")
+    %>
 
-            <h1>Map Excel Columns to Google Calendar Fields</h1>
+<div class="page-header">
+      <h1>Map Excel Columns to Google Calendar Fields</h1>
+    </div>
+            
             <g:form name="configure" action="save" id="${importAttemptInstance.id}" class="form-horizontal" role="form">
 
                 <div class="form-group">
@@ -58,16 +61,17 @@
                 <div class="form-group">
                     <label for="columnMap" class="col-lg-2 control-label">Column Map</label>
                     <div class="col-lg-offset-2 col-lg-10">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-bordered table-condensed table-responsive">
                             <thead>
                                 <tr>
                                     <th>Excel Column</th>
                                     <th>Google Calendar Field</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody id="google_calendar_mapping">
                                 <g:if test="${importAttemptInstance.excelMapping?.size() > 0}">
-                                    <g:each in="${importAttemptInstance.excelMapping}" var="map" status="i">
+                                    <g:each in="${importAttemptInstance.excelMapping?.sort { it.columnName }}" var="map" status="i">
                                         <tr>
                                             <td><g:select name="excelMapping[${i}].columnName" value="${map.columnName}" from="${'A'..'Z'}" noSelection="['':'-Choose Excel Column-']"/></td>
                                             <td><g:select name="excelMapping[${i}].googleField"  value="${map.googleField}" from="${googleFields}" noSelection="['':'-Choose Google Field-']"/></td>

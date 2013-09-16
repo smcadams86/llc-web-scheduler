@@ -138,14 +138,16 @@ def isEmpty = { c ->
       <g:each in="${mapping}" var="map">
         <th>${map.googleField}</th>    
       </g:each>
+      <td>&nbsp;</td>
       </tr>
       </thead>
       <tbody>
       <g:each in="${importAttemptInstance.failedEvents}" var="e">
         <tr>
         <g:each in="${mapping}" var="map">
-          <td>${e.data[map.googleField]}</td>
+          <td>${e.failedFields.find { it.columnName.equals(map.googleField)}.value}</td>
         </g:each>
+        <td><div class="btn btn-default"><span class="glyphicon glyphicon-edit" /></div></td>
         </tr>
       </g:each>
       </tbody>					
