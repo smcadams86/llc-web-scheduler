@@ -21,14 +21,9 @@
         </div>
       </div>
 
-      
-      
-      
-      
-
 
         <div id="show-importAttempt" class="content scaffold-show" role="main">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+            <h1>Import Attempt</h1>
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
@@ -86,15 +81,16 @@
                         </tr>
                         <tr>
                                 <g:each in="${importAttemptInstance.excelMapping?.sort()}" var="mapping">
-                                <th>${mapping.value}</th>    
+                                <th>${mapping.googleField}</th>    
                                 </g:each>
+                    
                         </tr>
                     </thead>
                     <tbody>
                         <g:each in="${importAttemptInstance.failedEvents}" var="e">
                             <tr>
                                 <g:each in="${importAttemptInstance.excelMapping?.sort()}" var="mapping">
-                                <td>${e[mapping.value]}</td>
+                                <td>${e.data[mapping.googleField]}</td>
                                 </g:each>
                                 
                             </tr>
@@ -102,12 +98,6 @@
                     </tbody>					
                 </table>
             </g:if>
-            <g:form url="[resource:importAttemptInstance, action:'delete']" method="DELETE">
-                <fieldset class="buttons">
-                    <g:link class="edit" action="edit" resource="${importAttemptInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-                    <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-                </fieldset>
-            </g:form>
         </div>
     </body>
 </html>

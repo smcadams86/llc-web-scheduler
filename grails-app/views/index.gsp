@@ -6,12 +6,16 @@
     </head>
     <body>
         <div class="container">
-
-
+          
             <div class="jumbotron">
                 <h1>LLC Web Scheduler</h1>
                 <p>Taking the pain out of scheduling</p>
             </div>
+          <div class="row">
+            <g:if test="${flash.message}">
+                <div class="alert alert-info" role="status">${flash.message}</div>
+            </g:if>
+          </div>
           <div class="row">
             <div class="text-center">
               <h2>Pick Your Data Source</h2>

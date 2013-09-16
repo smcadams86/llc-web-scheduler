@@ -56,20 +56,21 @@ class ImportService {
 //                timeCalendar.get(Calendar.HOUR_OF_DAY),
 //                timeCalendar.get(Calendar.MINUTE),
 //                timeCalendar.get(Calendar.SECOND));
-//				
-            def googleCalendarEvent = new GoogleCalendarDomainEvent(eventParams)
-//                title : "${eventParams.event} - ${eventParams.minister ? eventParams.minister : ''}",
-//                startTime : calendar.time,
-//                location : eventParams.location,
-//                description : eventParams.minister + "\n" + eventParams.event + "\n" + eventParams.comments
-//            )
 
-            if (googleCalendarEvent.hasErrors()) {
-                println "hasErrors..."
-                importAttempt.addToFailedEvents(new FailedCalendarEvent(data : eventParams))
+            def params = [:]
+            eventParams.each { k, v ->
+              def value = v
+              if (v instanceof org.joda.time.LocalDate) {
+                  value = v.toDate()?.toString()
+              }
+              params[k] = value
+            }
+            def googleCalendarEvent = new GoogleCalendarDomainEvent(params)
+            if (googleCalendarEvent.validate()) {
+                importAttempt.addToEvents(googleCalendarEvent)
             }
             else {
-                importAttempt.addToEvents(googleCalendarEvent)
+                importAttempt.addToFailedEvents(new FailedCalendarEvent(data : params))
             }
         }
 		

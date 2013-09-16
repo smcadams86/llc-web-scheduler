@@ -80,7 +80,7 @@ class ImportAttemptController {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'ImportAttempt.label', default: 'ImportAttempt'), importAttemptInstance.id])
-                redirect action:"index", method:"GET"
+                redirect uri : "/"
             }
             '*'{ render status: NO_CONTENT }
         }
