@@ -8,20 +8,23 @@
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
-        <a href="#show-importAttempt" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                </ul>
-            </div>
 
+      <div class="nav">
         <div class="btn-group">
-            <g:link action="configure" class="btn btn-default">Define Excel Configuration</g:link>
-                <g:link action="executeImport" id="${importAttemptInstance.id}" class="btn btn-default">Execute Import</g:link>
-                <button type="button" class="btn btn-default">Right</button>
-            </div>
+          <g:link action="configure" id="${importAttemptInstance.id}" class="btn btn-default">Define Excel Configuration</g:link>
+          <g:link action="executeImport" id="${importAttemptInstance.id}" class="btn btn-primary">Execute Import</g:link>  
+        </div>
+        <div class="pull-right">
+          <g:form url="[resource:importAttemptInstance, action:'delete']" method="DELETE" class="form-inline" role="form">
+            <g:actionSubmit class="btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+          </g:form>
+        </div>
+      </div>
+
+      
+      
+      
+      
 
 
         <div id="show-importAttempt" class="content scaffold-show" role="main">

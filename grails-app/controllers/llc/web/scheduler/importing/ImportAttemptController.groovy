@@ -21,10 +21,6 @@ class ImportAttemptController {
         respond importAttemptInstance
     }
 
-    def create() {
-        respond new ImportAttempt(params)
-    }
-
     @Transactional
     def save(ImportAttempt importAttemptInstance) {
         if (importAttemptInstance == null) {
@@ -46,10 +42,6 @@ class ImportAttemptController {
             }
             '*' { respond importAttemptInstance, [status: CREATED] }
         }
-    }
-
-    def edit(ImportAttempt importAttemptInstance) {
-        respond importAttemptInstance
     }
 
     @Transactional

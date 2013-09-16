@@ -41,8 +41,6 @@
 %>
 
             <h1>Map Excel Columns to Google Calendar Fields</h1>
-            ${importAttemptInstance.sheetName}
-            ${importAttemptInstance.id}
             <g:form name="configure" action="save" id="${importAttemptInstance.id}" class="form-horizontal" role="form">
 
                 <div class="form-group">
@@ -73,7 +71,12 @@
                                         <tr>
                                             <td><g:select name="excelMapping[${i}].columnName" value="${map.columnName}" from="${'A'..'Z'}" noSelection="['':'-Choose Excel Column-']"/></td>
                                             <td><g:select name="excelMapping[${i}].googleField"  value="${map.googleField}" from="${googleFields}" noSelection="['':'-Choose Google Field-']"/></td>
-                                            <td>&nbsp;</td>
+                                            <td>
+                                              <g:if test="${i > 0}">
+                                                <button type="button" class="btn btn-danger" onclick="$(this).closest('tr').remove()"><p class="glyphicon glyphicon-trash"></p></button>
+                                              </g:if>
+                                              <g:else>&nbsp;</g:else>
+                                            </td>
                                         </tr>
                                     </g:each>
                                 </g:if>
