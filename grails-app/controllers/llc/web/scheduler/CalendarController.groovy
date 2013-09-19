@@ -13,10 +13,7 @@ class CalendarController {
 
 	OauthService oauthService
 	def grailsApplication
-
-	private static final HttpTransport TRANSPORT = new NetHttpTransport();
-	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
-
+        
 	def index() {
 	}
 

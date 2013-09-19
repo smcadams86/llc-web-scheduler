@@ -39,7 +39,7 @@ def isEmpty = { c ->
       <g:link action="executeImport" id="${importAttemptInstance.id}"  class="btn btn-default" >
         Execute Import
       </g:link>
-      <g:link action="executeExport" id="${importAttemptInstance.id}" class="btn btn-default" >
+      <g:link action="export" id="${importAttemptInstance.id}" class="btn btn-default" >
         Execute Export
       </g:link>
     </div>
@@ -145,7 +145,10 @@ def isEmpty = { c ->
       <g:each in="${importAttemptInstance.failedEvents}" var="e">
         <tr>
         <g:each in="${mapping}" var="map">
-          <td>${e.failedFields.find { it.columnName.equals(map.googleField)}.value}</td>
+            <% def fieldError = e.failedFields.find { it.columnName.equals(map.googleField)}.error %>
+          <td class="${!isEmpty(fieldError) ? 'danger' : ''}" >
+            ${e.failedFields.find { it.columnName.equals(map.googleField)}.value}
+          </td>
         </g:each>
         <td><div class="btn btn-default"><span class="glyphicon glyphicon-edit" /></div></td>
         </tr>

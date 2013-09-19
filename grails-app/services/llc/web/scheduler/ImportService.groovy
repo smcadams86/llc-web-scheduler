@@ -29,6 +29,9 @@ class ImportService {
     //    ]
 
     def executeImport(ImportAttempt importAttempt) {
+        importAttempt.events?.clear()
+        importAttempt.failedEvents?.clear()
+        
         def columnMap = [:]
         importAttempt.excelMapping.each { excelMap ->
             columnMap[excelMap.columnName] = excelMap.googleField
@@ -62,11 +65,12 @@ class ImportService {
             eventParams.each { k, v ->
               def value = v
               if (v instanceof org.joda.time.LocalDate) {
-                  value = v.toDate()?.toString()
+                  value = v.toDate()
               }
               params[k] = value
             }
             def googleCalendarEvent = new GoogleCalendarDomainEvent(params)
+            googleCalendarEvent.importAttempt = importAttempt
             if (googleCalendarEvent.validate()) {
                 importAttempt.addToEvents(googleCalendarEvent)
             }

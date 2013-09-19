@@ -9,6 +9,8 @@ import grails.transaction.Transactional
 class ImportAttemptController {
     
     def importService
+    def oauthService
+    def googleCalendarService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -113,4 +115,20 @@ class ImportAttemptController {
         
         redirect action:'show', id:importAttemptInstance.id
     }
+    
+    def getGoogleAccessToken() {
+        String sessionKey = oauthService.findSessionKeyForAccessToken('google')
+        return session[sessionKey]
+    }
+
+    
+    def export(ImportAttempt importAttemptInstance) {
+        
+        if (importAttemptInstance == null) {
+            notFound()
+            return
+        }
+        [importAttemptInstance : importAttemptInstance, calendars : googleCalendarService.list(getGoogleAccessToken())]
+    }
+        
 }
