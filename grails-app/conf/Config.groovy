@@ -128,6 +128,8 @@ oauth {
             failureUri = '/callback/failure'
             scope = 'https://www.googleapis.com/auth/calendar'
             callback = "http://localhost:8080/llc-web-scheduler/oauth/google/callback"
+//            signatureType = 'QueryString'
+            signatureType = 'Header'
         }
     }
     debug = true

@@ -1,5 +1,6 @@
 
 <%@ page import="llc.web.scheduler.importing.ImportAttempt" %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,13 +24,12 @@ def isEmpty = { c ->
   return c == null || c.size() == 0
 }
 %>
-
+<div class="page-header">
   <h1>Import Attempt</h1>
+  </div>
   <g:if test="${flash.message}">
     <div class="alert alert-info" role="status">${flash.message}</div>
   </g:if>
-  
-  
   
   <div class="btn-toolbar">
     <div class="btn-group btn-group-lg">
@@ -39,9 +39,14 @@ def isEmpty = { c ->
       <g:link action="executeImport" id="${importAttemptInstance.id}"  class="btn btn-default" >
         Execute Import
       </g:link>
+      <g:if test="${session['google:oasAccessToken']}">
       <g:link action="export" id="${importAttemptInstance.id}" class="btn btn-default" >
         Execute Export
       </g:link>
+      </g:if>
+      <g:else>
+        <oauth:connect provider="google" id="google-connect-link" class="btn btn-default">Google Authorization</oauth:connect>
+      </g:else>
     </div>
   </div>
 
@@ -93,38 +98,7 @@ def isEmpty = { c ->
   </form>
   
   <g:if test="${importAttemptInstance?.events}">
-    <table id="events_table" class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr>
-          <th colspan="4" class="text-center success">SUCCESSFULLY IMPORTED EVENTS</th>
-        </tr>
-        <tr>
-          <th>Time</th>
-          <th>Title</th>
-          <th>Location</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-      <g:each in="${importAttemptInstance.events?.sort { it.startTime }}" var="e">
-        <tr>
-          <td>${e.startTime}</td>
-          <td>${e.title}</td>
-          <td>${e.location}</td>
-          <td>${e.description}</td>
-        </tr>
-      </g:each>
-      </tbody>					
-    </table>
-    <script>
-      $(document).ready(function() {
-        $("#events_table").dataTable( {
-            "aaSorting": [[ 1, "desc" ]],
-            "sPaginationType": "bs_normal"
-        });
-        $("select").addClass("form-control");
-      });
-    </script>
+    <g:render template='/shared/dataTable' model='[datatablesTitle : "SUCCESSFULLY IMPORTED EVENTS"]' />
   </g:if>
 
   <g:if test="${importAttemptInstance?.failedEvents}">

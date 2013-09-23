@@ -128,7 +128,19 @@ class ImportAttemptController {
             notFound()
             return
         }
-        [importAttemptInstance : importAttemptInstance, calendars : googleCalendarService.list(getGoogleAccessToken())]
+        
+        [importAttemptInstance : importAttemptInstance, calendars : googleCalendarService.list(getGoogleAccessToken()), createCalendarSuccess : params.boolean('createCalendarSuccess'), createCalendarMessage : params['createCalendarMessage']]
+    }
+    
+    def newCalendar(ImportAttempt importAttemptInstance) {
+        
+        if (importAttemptInstance == null) {
+            notFound()
+            return
+        }
+        
+        def result = googleCalendarService.create(getGoogleAccessToken(), params['summary'], params['timezone'])
+        redirect action : 'export', id : importAttemptInstance.id,  params:[createCalendarSuccess : result.success, createCalendarMessage : result.message]
     }
         
 }

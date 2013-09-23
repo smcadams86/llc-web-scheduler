@@ -8,17 +8,12 @@ class CallbackController {
     def index() { }
     
     def success() {
-        println "success : ${params}"
-        String sessionKey = oauthService.findSessionKeyForAccessToken('google')
-        def scribeToken = session[sessionKey]
-        
-//        println session[sessionKey]
-//        googleCalendarService.list(scribeToken.token)
-        
-        redirect controller:'calendar', action:'show'
+        flash.message = "Succesfully Authenticated!"
+        redirect uri : "/"
     }
     
     def failure() {
-        
+        flash.message = "Authentication Failure"
+        redirect uri : "/"
     }
 }

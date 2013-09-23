@@ -8,6 +8,8 @@ class GoogleCalendarDomainEvent {
 	static constraints = {
 		description nullable:true
 		location nullable:true
+        endTime nullable:true
+        title nullable:true
 	}
 
 	static belongsTo = [importAttempt : ImportAttempt]
@@ -18,6 +20,7 @@ class GoogleCalendarDomainEvent {
 
 	String title;
 	Date startTime;
+    Date endTime;
 	String location;
 	String description;
 }
