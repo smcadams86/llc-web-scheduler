@@ -39,6 +39,11 @@
               <a data-toggle="modal" href="#newCalendarModal" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus-sign"></span> New Calendar</a>
             </div>
           </div>
+          <div class="form-group">
+           <label for="sendNotifications" class="col-lg-2 control-label">Send Notifications</label>
+           <div class="col-lg-8">
+             <g:checkbox name="sendNotifications" value="${true}" />
+           </div>
           <div class="well well-lg text-right">
             <g:submitButton name="copyToCalendar" value="Export to Google" class="btn btn-primary btn-lg" />
           </div>

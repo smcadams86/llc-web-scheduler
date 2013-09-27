@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="${resource(dir : 'js/datatables-bootstrap/css', file : 'datatables.css')}" type="text/css"/>
   <script src="${resource(dir: 'js/datatables-bootstrap/js', file: 'datatables.js')}"></script>
   
+  <g:javascript library="jquery" />
+  
+  
 </head>
 <body>
 
@@ -28,7 +31,10 @@ def isEmpty = { c ->
   <h1>Import Attempt</h1>
   </div>
   <g:if test="${flash.message}">
-    <div class="alert alert-info" role="status">${flash.message}</div>
+    <div class="alert alert-info alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      ${flash.message}
+    </div>
   </g:if>
   
   <div class="btn-toolbar">
@@ -76,10 +82,24 @@ def isEmpty = { c ->
     <div class="form-group">
       <label for="inputStartRow" class="col-lg-2 control-label">Excel Start Row</label>
       <div class="col-lg-9">
-        <input type="number" class="form-control" id="startRow" placeholder="Excel Start Row"  value="${importAttemptInstance.startRow}"  disabled="disabled">
+        <div id="changeStartRowContent" style="display: none;">
+          <div id="changeStartRowResponse"></div>
+          <g:remoteField
+            id="${importAttemptInstance.id}"
+            class="form-control"
+            action="changeStartRow"
+            update="changeStartRowResponse"
+            name="startRow"
+            onSuccess="\$('#originalStartRowContent').css('display','block');\$('#changeStartRowContent').css('display','none');\$('#originalStartRowContent').addClass('alert alert-success');"
+            onFailure="\$('#changeStartRowContent').css('display','block');\$('#originalStartRowContent').css('display','none');\$('#changeStartRowContent').addClass('alert alert-danger');"
+            value="${importAttemptInstance.startRow}" />
+        </div>
+        <div id="originalStartRowContent" >
+          <input type="number" class="form-control" placeholder="Excel Start Row" value="${importAttemptInstance.startRow}"  disabled="disabled">
+        </div>
       </div>
       <div class="col-lg-1">
-        <div class="btn btn-default"><span class="glyphicon glyphicon-edit" /></div>
+        <button type="button" class="btn btn-default" onclick="$('#changeStartRowContent').css('display','block');$('#originalStartRowContent').css('display','none'); $('#changeStartRowContent').children('input').focus();"><span class="glyphicon glyphicon-edit" /></button>
       </div>
     </div>
     <div class="form-group">

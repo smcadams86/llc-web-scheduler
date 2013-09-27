@@ -132,6 +132,17 @@ class ImportAttemptController {
         [importAttemptInstance : importAttemptInstance, calendars : googleCalendarService.list(getGoogleAccessToken()), createCalendarSuccess : params.boolean('createCalendarSuccess'), createCalendarMessage : params['createCalendarMessage']]
     }
     
+    def executeExport(ImportAttempt importAttemptInstance) {
+        
+        if (importAttemptInstance == null) {
+            notFound()
+            return
+        }
+        
+        def result = googleCalendarService.export(getGoogleAccessToken(), params.boolean('sendNotifications'), params.string('calendarId'), importAttemptInstance)
+        
+    }
+    
     def newCalendar(ImportAttempt importAttemptInstance) {
         
         if (importAttemptInstance == null) {
@@ -143,4 +154,13 @@ class ImportAttemptController {
         redirect action : 'export', id : importAttemptInstance.id,  params:[createCalendarSuccess : result.success, createCalendarMessage : result.message]
     }
         
+    
+    def changeStartRow(ImportAttempt importAttemptInstance) {
+        if (importAttemptInstance == null) {
+            notFound()
+            return
+        }
+        importAttemptInstance.properties['startRow'] = params
+        render "Start Row updated"
+    }
 }
