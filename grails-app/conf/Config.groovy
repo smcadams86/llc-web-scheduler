@@ -84,6 +84,8 @@ grails.exceptionresolver.params.exclude = ['password']
 // configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
 grails.hibernate.cache.queries = false
 
+grails.views.javascript.library="jquery"
+
 environments {
     development {
         grails.logging.jul.usebridge = true
@@ -128,7 +130,7 @@ oauth {
             failureUri = '/callback/failure'
             scope = 'https://www.googleapis.com/auth/calendar'
             callback = "https://llc-web-scheduler.herokuapp.com/oauth/google/callback"
-//            signatureType = 'QueryString'
+//            callback = "http://localhost:8080/llc-web-scheduler/oauth/google/callback"
             signatureType = 'Header'
         }
     }

@@ -15,8 +15,11 @@ class ImportAttemptController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond ImportAttempt.list(params), model:[importAttemptInstanceCount: ImportAttempt.count()]
+        redirect action : 'list'
+    }
+    
+    def list() {
+        respond ImportAttempt.list()
     }
 
     def show(ImportAttempt importAttemptInstance) {

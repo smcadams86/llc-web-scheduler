@@ -16,9 +16,6 @@
   <link rel="stylesheet" href="${resource(dir : 'js/datatables-bootstrap/css', file : 'datatables.css')}" type="text/css"/>
   <script src="${resource(dir: 'js/datatables-bootstrap/js', file: 'datatables.js')}"></script>
   
-  <g:javascript library="jquery" />
-  
-  
 </head>
 <body>
 

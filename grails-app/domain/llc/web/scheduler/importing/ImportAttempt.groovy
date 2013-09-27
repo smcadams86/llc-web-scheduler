@@ -9,6 +9,9 @@ class ImportAttempt {
         sheetName(nullable: true)
         startRow(nullable: true)
     }
+    
+    Date dateCreated 
+    Date lastUpdated
 	
     UFile ufile
     String sheetName
@@ -20,9 +23,11 @@ class ImportAttempt {
         excelMapping : ExcelMap
     ]
 	
-    static mapping = { 
+    static mapping = {
+        autoTimestamp true
+         
         events cascade: 'all-delete-orphan'
         failedEvents cascade: 'all-delete-orphan'
     }
-	
+    
 }

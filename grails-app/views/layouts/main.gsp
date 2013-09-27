@@ -13,13 +13,16 @@
     <link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
     <script src="${resource(dir: 'js/datatables/media/js', file: 'jquery.js')}"></script>
+    <link rel="stylesheet" href="${resource(dir : 'css', file : 'bootstrap.custom.css')}" type="text/css"/>
 
   <r:require modules="bootstrap" />
   <g:layoutHead/>
   <r:layoutResources />
 </head>
 <body>
+  
   <div class="container">
+  	<g:render template="/layouts/header" />
     <g:layoutBody/>
   </div>
 <g:javascript library="application"/>

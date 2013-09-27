@@ -47,6 +47,7 @@
           <div class="well well-lg text-right">
             <g:submitButton name="copyToCalendar" value="Export to Google" class="btn btn-primary btn-lg" />
           </div>
+          </div>
         </form>
       </div>
       <div class="page-header">

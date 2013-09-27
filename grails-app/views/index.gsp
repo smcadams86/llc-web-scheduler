@@ -5,8 +5,6 @@
     <title>LLC Web Scheduler</title>
   </head>
   <body>
-    <div class="container">
-
       <div class="jumbotron">
         <h1>LLC Web Scheduler</h1>
         <p>Taking the pain out of scheduling</p>
@@ -17,6 +15,10 @@
         </g:if>
       </div>
       <g:if test="${session['google:oasAccessToken']}">
+        <g:link controller="calendar" action="createTest" class="btn btn-danger">
+          Generate calendar for testing
+        </g:link>
+        
         <div class="row">
           <div class="text-center">
             <h2>Pick Your Data Source</h2>
@@ -52,7 +54,5 @@
           <oauth:connect provider="google" id="google-connect-link" class="btn btn-primary btn-block">Google Authorization</oauth:connect>
         </div>
       </g:else>
-    </div>
-  </div>
 </body>
 </html>
