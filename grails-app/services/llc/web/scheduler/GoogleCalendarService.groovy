@@ -81,7 +81,7 @@ class GoogleCalendarService {
         println "create($summary, $timezone)"
         
         if (token) {
-            def url = "https://www.googleapis.com/calendar/v3/calendars?fields=Csummary=${summary}%2CtimeZone=${timezone}&key=${grailsApplication.config.oauth.providers.google.key}"
+            def url = "https://www.googleapis.com/calendar/v3/calendars"
             def listUrl = 'https://www.googleapis.com/calendar/v3/users/me/calendarList?key=${grailsApplication.config.oauth.providers.google.key}'
             
             
@@ -197,7 +197,14 @@ class GoogleCalendarService {
             println oauthService.getGoogleResource(token, getCalendarUrl).body
 
             
-            def calendar = oauthService.postGoogleResource(token, url)
+            def postBody = """
+                {
+                    "summary" : "${summary}",
+                    "timeZone" : "${timezone}"
+                }
+            """
+            
+            def calendar = oauthService.postGoogleResource(token, url, postBody)
             def jsonResponse = JSON.parse(calendar.body)
             println calendar.body
             println "=" * 20

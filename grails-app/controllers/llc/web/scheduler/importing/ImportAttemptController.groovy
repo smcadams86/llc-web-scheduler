@@ -3,6 +3,7 @@ package llc.web.scheduler.importing
 
 
 import static org.springframework.http.HttpStatus.*
+import grails.converters.XML
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
