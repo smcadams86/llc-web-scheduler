@@ -38,43 +38,24 @@ class CalendarController {
         }
         return conf
     }
-    
+
     def createTest() {
-        
         def token = getGoogleAccessToken()
-        def getCalendarUrl = "https://www.googleapis.com/calendar/v3/calendars/5nbpkdua0hk3nbs0lphf5igsps@group.calendar.google.com"
-        println oauthService.getGoogleResource(token, getCalendarUrl).body
-        
-        
-        
         def newCalendarUrl = "https://www.googleapis.com/calendar/v3/calendars"
-        def newCalendar = [
-            "kind": "calendar#calendar",
-            "summary": "TESTING CALENDAR...",
-            "description": "DELETE THIS CALENDAR"
-        ]
-        def headers = [
-            "Content-type" : "application/json",
-            "Authorization" : "Bearer ${token.token}"
-        ]
-        def i = 0
-        def jsonResponse = JSON.parse(oauthService.postGoogleResource(token, newCalendarUrl, newCalendar, headers).body)
-        while (jsonResponse.error && i < 5) {
-            token = refreshToken()
-            headers = [
-                "Content-type" : "application/json",
-                "Authorization" : "Bearer ${token.token}"
-            ]
-            
-            println "retry attempt [$i]..."
-            jsonResponse = JSON.parse(oauthService.postGoogleResource(refreshToken(), newCalendarUrl, newCalendar, headers).body)
-            println jsonResponse
-            i++
-            sleep(1000);
+
+        def payload = """
+        {
+            summary: "brand new calendar" 
         }
+        """
         
-        
+        def i = 0
+        def jsonResponse = JSON.parse(oauthService.postGoogleResourceWithPayload(token, newCalendarUrl, payload, 'application/json').body)
+        if (jsonResponse.error) {
+            flash.message = jsonResponse
+        }
         redirect uri : "/"
-        
     }
+
+    
 }

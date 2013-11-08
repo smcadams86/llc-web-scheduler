@@ -116,19 +116,15 @@ log4j = {
 
 grails.plugins.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
 
-
 oauth {
     providers {
         google {
+//            api = llc.web.scheduler.GoogleOauthApi
             api = org.scribe.builder.api.GoogleApi
-            key = '914349743162.apps.googleusercontent.com'
-            secret = 'Ah1MfPPA3u22z8YWkU960JBp'
             successUri = '/callback/success'
             failureUri = '/callback/failure'
-            scope = 'https://www.googleapis.com/auth/calendar'
-            callback = "https://llc-web-scheduler.herokuapp.com/oauth/google/callback"
-//            callback = "http://localhost:8080/llc-web-scheduler/oauth/google/callback"
-            signatureType = 'Header'
+//            scope = 'https://www.googleapis.com/auth/calendar'
+            scope = 'https://www.google.com/calendar/feeds/'
         }
     }
     debug = true
